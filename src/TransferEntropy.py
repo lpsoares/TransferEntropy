@@ -2,8 +2,10 @@
 # Luciano 24 março 2016
 
 import numpy as np      # mathmatical library
+import math
+
 import xls
-import matplotlib.pyplot as plt
+from Shannon import *
 
 #filename = '../data/FinancialTE.xlsx'
 filename = '../data/Exemplo.xlsx'
@@ -14,15 +16,26 @@ last_column = 'E'
 XLS = xls.xls(filename, worksheet)
 matrix,name,time = XLS.getValues(last_column) #retriev matrix with number, names and time
 
-print(matrix[:,3])
-#print(min(matrix[3]))
-#print(max(matrix[3]))
+JPM = Shannon(matrix[:,3])
+#H,b = JPM.calcH(5)
+#print("bin size = ",b)
+#print("H = ",H)
 
-hist, bins = np.histogram(matrix[:,3], bins=32)
-width = 0.7 * (bins[1] - bins[0])
-center = (bins[:-1] + bins[1:]) / 2
-plt.bar(center, hist, align='center', width=width)
+bins_width = []
+bins_qtd = []
+Hs = []
+for i in range(40,1,-1):
+    H,b = JPM.calcH(i)
+    Hs.append(H)
+    bins_width.append(b)
+    bins_qtd.append(i)
+
+import matplotlib.pyplot as plt
+#plt.plot(bins_width,Hs)
+plt.plot(bins_qtd,Hs)
+plt.ylabel('Hs')
 plt.show()
+
 
 
 '''
