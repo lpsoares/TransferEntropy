@@ -18,9 +18,9 @@ class Shannon:
                 H += pi*math.log(pi,2)
         return -H
 
-    def calcH(self, qtd=40):
+    def calcH(self, qtd=40,plot=False):
         #bins, width = util.makeBins(matrix[:,3],qtd=4, size=0.11, debug=True)
         bins, bin_size = util.makeBins(self.matrix,qtd)
-        hist = util.hist(self.matrix, bins, False)
+        hist = util.hist(self.matrix, bins, plot)
         H = self.shannon_entropy(hist)
         return H,bin_size

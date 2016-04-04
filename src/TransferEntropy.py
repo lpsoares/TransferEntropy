@@ -16,26 +16,33 @@ last_column = 'E'
 XLS = xls.xls(filename, worksheet)
 matrix,name,time = XLS.getValues(last_column) #retriev matrix with number, names and time
 
-JPM = Shannon(matrix[:,3])
-#H,b = JPM.calcH(5)
+JPM = Shannon(matrix[:,2])
+#H,b = JPM.calcH(40, True)
 #print("bin size = ",b)
 #print("H = ",H)
 
-bins_width = []
-bins_qtd = []
-Hs = []
-for i in range(40,1,-1):
-    H,b = JPM.calcH(i)
-    Hs.append(H)
-    bins_width.append(b)
-    bins_qtd.append(i)
 
-import matplotlib.pyplot as plt
-#plt.plot(bins_width,Hs)
-plt.plot(bins_qtd,Hs)
-plt.ylabel('Hs')
-plt.show()
+def tudo():
+    bins_width = []
+    bins_qtd = []
+    Hs = []
+    for i in range(40,1,-1):
+        H,b = JPM.calcH(i)
+        Hs.append(H)
+        bins_width.append(b)
+        bins_qtd.append(i)
 
+    import matplotlib.pyplot as plt
+    #plt.plot(bins_width,Hs)
+    plt.plot(bins_qtd,Hs)
+    plt.ylabel('Hs')
+    plt.show()
+
+tudo()
+
+# calcular o desvio padrão de cada empresa
+# ordenar pelo desvio padrão
+# plotar gráfico 3D
 
 
 '''
